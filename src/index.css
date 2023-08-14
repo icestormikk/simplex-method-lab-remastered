@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #root {
+    @apply w-screen min-h-screen max-w-[100vw] flex justify-start flex-col;
+    font-family: 'Ubuntu', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    @apply hidden
+  }
+  
+  a {
+    font-weight: 500;
+    text-decoration: inherit;
+  }
+  a:hover {
+    color: #535bf2;
+  }
+  
+  body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+  
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
+  
+  button {
+    border-radius: 8px;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  button:hover {
+    border-color: #646cff;
+  }
+  button:focus,
+  button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+  }
+
+  #menu button {
+    @apply text-gray-500 hover:text-black duration-200
+  }
+
+  #main-layout > div {
+    @apply w-full bordered rounded-md p-2
+  }
+
+  #main-layout-header {
+    @apply flex flex-nowrap flex-row gap-2 justify-between items-center
+    text-base font-semibold w-full bordered rounded-md p-2
+  }
+
+  #main-layout-header button {
+    @apply opacity-0 duration-200 p-0
+  }
+
+  #main-layout-header:hover button {
+    @apply opacity-100 duration-200
+  }
+
+  #main-layout-header #icon {
+    @apply flex-nowrap centered gap-2
+  }
+
+  .matrix-table {
+    @apply overflow-scroll
+  }
+  .matrix-table td {
+    @apply px-2 py-1 border-[1px] border-gray-400 hover:bg-gray-200 duration-200 text-center
+  }
+  .matrix-table td.decorative {
+    @apply bg-gray-100 font-bold 
+  }
+  .matrix-table input[type='number'] {
+    @apply w-10 text-center duration-200 bg-transparent 
+  }
+
+  #types-chooser select {
+    @apply border-[1px] border-gray-400 w-full
+  }
+  #types-chooser label {
+    @apply w-full
+  }
+
+  #config-panel > div {
+    @apply centered flex-col gap-2
+  }
+
+  .accept-button {
+    @apply bg-green-600 text-white px-2 py-0.5 centered flex-nowrap gap-2 rounded-sm
+  }
+
+  #additional-params label {
+    @apply border-gray-400 border-[1px] rounded-sm px-2 py-0.5
+  }
+
+  .task-step-container {
+    @apply flex flex-col flex-nowrap
+  }
+  .task-step-container .reboot-button {
+    @apply hidden
+  }
+  .task-step-container:hover .reboot-button {
+    @apply flex
+  }
+
+  .tech-container {
+    @apply flex justify-start items-start gap-1 flex-col py-0.5 h-auto hover:bg-gray-200/60 duration-100 p-0.5 w-full
+  }
+  .tech-container span {
+    @apply text-gray-500
+  }
+  .tech-container .description {
+    @apply hidden
+  }
+  .tech-container:hover .description {
+    @apply flex text-gray-500
+  }
+}
+
+@layer components {
+  .centered {
+    @apply flex justify-center items-center
+  }
+  .bordered {
+    @apply border-[1px] border-gray-300 shadow-sm
+  }
+
+  .modal {
+    @apply z-[1000]
+  }
+  .modal .modal-mask {
+    @apply w-screen h-screen fixed left-0 top-0;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .modal .modal-warp {
+    @apply fixed -translate-x-2/4 z-[19] left-2/4 top-2 h-min w-max;
+  }
+  .modal .modal-content {
+    @apply shadow-[0_0_10px_-4px_rgb(130,86,208)] w-fit overflow-x-hidden rounded;
+  }
+  .modal .modal-content .modal-header {
+    @apply flex leading-[38px] bg-primary-model-color;
+  }
+  .modal .modal-content .modal-header .modal-header-text {
+    @apply text-lg text-white grow flex justify-start items-center px-2;
+  }
+  .modal .modal-content .modal-close {
+    @apply w-[30px] h-[30px] leading-[34px] text-center cursor-pointer p-1 centered text-white
+    hover:bg-red-600 duration-150;
+  }
+  .modal .modal-content .modal-close svg {
+    @apply w-[30px] h-[30px];
+  }
+  .modal .modal-content .modal-body {
+    @apply bg-white text-[#333] overflow-x-hidden overflow-y-scroll max-h-[94vh] min-w-fit max-w-[1000px] w-full;
+  }
+  .modal .modal-content .modal-footer {
+    @apply bg-white flex p-2.5 justify-end;
+  }
+  .modal .modal-content .modal-footer button {
+    @apply bg-[color:var(--primary-color)] text-sm ml-2.5 px-[11px] py-[7px] first:ml-0;
+  }
+  .modal .icon {
+    @apply w-5 fill-current px-[15px] py-0 hover:text-[rgba(0,0,0,0.4)];
+  }
+
+  .step-container {
+    @apply flex flex-row w-full h-fit bordered rounded-md overflow-hidden p-2 gap-2
+  }
+  .step-container button {
+    @apply opacity-0 duration-200 transition-all
+  }
+  .step-container:hover button {
+    @apply opacity-100
+  }
+
+  .simplex-step-buttons {
+    @apply centered flex-row gap-2 h-fit
+  }
+
+  .simplex-step-buttons button {
+    @apply accept-button text-sm rounded-md w-fit
+  }
+}
