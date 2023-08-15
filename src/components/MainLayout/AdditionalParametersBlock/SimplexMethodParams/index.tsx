@@ -1,8 +1,8 @@
 import React from 'react';
-import { DEFAULT_MATRIX_ELEMENT_VALUE } from '@/components/MatrixBuilder';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { appendParameters } from '@/redux/slices/TaskState';
 import WarningMessage from '../WarningMessage';
+import { DEFAULT_MATRIX_ELEMENT_VALUE } from '@/constants';
 
 function SimplexMethodParams() {
   const dispatch = useAppDispatch()

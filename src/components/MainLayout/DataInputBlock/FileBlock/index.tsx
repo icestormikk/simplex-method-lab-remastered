@@ -1,6 +1,5 @@
 import React from 'react';
 import Article from './Article';
-import { MAX_MATRIX_SIZE } from '@/components/MatrixBuilder';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 import { example, requiredFieldsData, supportedFileExtensions } from '@/properties';
@@ -12,6 +11,8 @@ import * as yaml from 'js-yaml'
 import { TaskData } from '@/vite-env';
 import { useAppDispatch } from '@/redux/hooks';
 import { setConfiguration } from '@/redux/slices/TaskState';
+import { MAX_ROWS_COUNT } from '@/constants';
+import PreviewScreen from '../PreviewScreen';
 
 interface FileBlockProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -39,7 +40,7 @@ function FileBlock({ setIsModalOpen }: FileBlockProps) {
       },
       {
         parameter: 'Размер матрицы коэффициентов',
-        availableValues: [`не более ${MAX_MATRIX_SIZE}`],
+        availableValues: [`не более ${MAX_ROWS_COUNT}`],
       },
       {
         parameter: 'Необходимые поля',
@@ -74,8 +75,7 @@ function FileBlock({ setIsModalOpen }: FileBlockProps) {
         parameter: 'Примечание',
         availableValues: [`
           Значения полей ${requieredFields.map((field) => field.title).join(', ')} могут быть
-          расположены в любом порядке и в любом месте файла. Все остальное содержимое будет воспринято
-          как матричные коэффициенты.
+          расположены в любом порядке и в любом месте файла.
         `]
       }
     ],
@@ -271,32 +271,11 @@ function FileBlock({ setIsModalOpen }: FileBlockProps) {
             !result ? (
               <b className='text-gray-400'>Здесь отобразится результат</b>
             ) : (
-              <div className='flex flex-col gap-2'>
-                <Article 
-                  title='Целевая функция' 
-                  content={(<motion.p>{result.target.toString()}</motion.p>)}
-                />
-                <Article 
-                  title='Ограничения' 
-                  content={(
-                    <ul>
-                      {
-                        result.constraints.map((constraint, index) => (
-                          <motion.li 
-                            key={index}
-                            initial={{opacity: 0.0}}
-                            animate={{opacity: 1.0}}
-                            transition={{duration: 0.3, delay: index * 0.2}}
-                          >
-                            {constraint.toString()}
-                          </motion.li>
-                        ))
-                      }
-                    </ul>
-                  )}
-                />
-                <Article title='Вид дробей в приложении' content={(<p>{result.fractionView}</p>)}/>
-              </div>
+              <PreviewScreen 
+                target={result.target} 
+                constraints={result.constraints} 
+                view={result.fractionView}
+              />
             )
           }
         </div>

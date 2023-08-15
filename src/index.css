@@ -98,7 +98,7 @@
   .matrix-table td.decorative {
     @apply bg-gray-100 font-bold 
   }
-  .matrix-table input[type='number'] {
+  .matrix-table input[type='text'] {
     @apply w-10 text-center duration-200 bg-transparent 
   }
 

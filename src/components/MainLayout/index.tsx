@@ -17,6 +17,7 @@ import SolutionBlock from './SolutionBlock';
 import { clearConfiguration, clearParameters, clearTaskMode } from '@/redux/slices/TaskState';
 import { clearSimplexState, clearSteps } from '@/redux/slices/SimplexState';
 import MainPageBlock from './MainPageBlock';
+import AuthorInfoPage from './AuthorInfoPage';
 
 function MainLayout() {
   const dispatch = useAppDispatch()
@@ -45,7 +46,7 @@ function MainLayout() {
 
       switch (mode) {
         case TaskMode.GRAPHICAL: {
-          return parameters && parameters['axis'] !== undefined
+          return parameters && parameters['selectedColumns'] !== undefined
         }
         case TaskMode.SIMPLEX: {
           return parameters && parameters['basis'] !== undefined
@@ -112,7 +113,7 @@ function MainLayout() {
     ],
     [isFirstStepCompleted, isSecondStepCompleted, isThirdStepCompleted]
   )
-  const [selectedItem, setSelectedItem] = React.useState<MenuItem|undefined>()
+  const [selectedItem, setSelectedItem] = React.useState<MenuItem>()
   const variants = {
     selected: { opacity: 1.0 },
     closed: { opacity: 0.0 }
@@ -139,6 +140,13 @@ function MainLayout() {
       dispatch(clearSteps())
     },
     [dispatch]
+  )
+
+  React.useEffect(
+    () => {
+      console.log(target, constraints)
+    },
+    [target, constraints]
   )
 
   return (
@@ -183,7 +191,7 @@ function MainLayout() {
                     }
                   </div>
                 ) : (
-                  <h1>Не реализовано</h1>
+                  <AuthorInfoPage/>
                 )
               )
             }

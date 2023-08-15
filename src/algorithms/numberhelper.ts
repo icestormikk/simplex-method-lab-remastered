@@ -34,5 +34,6 @@ export function fromRationalString(value: string) : number {
     }
 
     const nums = value.split('/')
-    return Number(nums[0]) / Number(nums[1])
+    const result = Number(nums[0]) / Number(nums[1])
+    return result !== Infinity ? result : 1
 }

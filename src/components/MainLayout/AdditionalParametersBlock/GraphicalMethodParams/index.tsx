@@ -5,7 +5,7 @@ import WarningMessage from '../WarningMessage';
 
 function GraphicalMethodParams() {
   const dispatch = useAppDispatch()
-  const {constraints, parameters} = useAppSelector((state) => state.taskReducer)
+  const {constraints} = useAppSelector((state) => state.taskReducer)
   const indexes = React.useMemo(
     () => {
       if (!constraints) {
@@ -16,9 +16,10 @@ function GraphicalMethodParams() {
     },
     [constraints]
   )
-  const [axis, setAxis] = React.useState<number[]>([0, 1])
+  const [selectedColumns, setSelectedColumns] = React.useState<number[]>([...Array(constraints?.length).keys()])
   const isBlocked = React.useMemo(
-    () => axis[0] === axis[1], [axis]
+    () => selectedColumns.length !== new Set(selectedColumns).size,
+    [selectedColumns]
   )
 
   const onSubmit = React.useCallback(
@@ -27,31 +28,24 @@ function GraphicalMethodParams() {
         return
       }
 
-      dispatch(appendParameters({axis: [...axis]}))
+      dispatch(appendParameters({selectedColumns: [...selectedColumns]}))
     },
-    [axis, dispatch, isBlocked]
-  )
-
-  React.useEffect(
-    () => {
-      console.log(parameters)
-    },
-    [parameters]
+    [dispatch, isBlocked, selectedColumns]
   )
 
   return (
     <div id='additional-params' className='flex flex-col gap-2 w-fit'>
-      <b>Введите индексы переменных, которые будут взяты в качестве осей графика: </b>
+      <b>Введите индексы переменных, к которым будет применён метод Гаусса: </b>
       <div className='flex flex-row gap-2 flex-nowrap'>
         {
-          ['X', 'Y'].map((line, index) => (
+          constraints?.map((_, index) => (
             <label key={index} htmlFor="x-axis" className='flex flex-row gap-2'>
-              {`Ось ${line}:`}
+              {`V${index}:`}
               <select 
-                name={`${line}-axis`} 
-                id={`${line}-axis`}
-                defaultValue={axis[index]}
-                onChange={(event) => setAxis((prevState) => {
+                name={`${index}-var`} 
+                id={`${index}-var`}
+                defaultValue={selectedColumns[index]}
+                onChange={(event) => setSelectedColumns((prevState) => {
                   prevState[index] = Number(event.target.value)
                   return [...prevState]
                 })}

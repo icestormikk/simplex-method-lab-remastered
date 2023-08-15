@@ -8,6 +8,8 @@ import reactLogo from '@/assets/instruments/react.svg'
 import reduxLogo from '@/assets/instruments/redux.svg'
 import tailwindLogo from '@/assets/instruments/tailwind.svg'
 import { motion } from 'framer-motion';
+import LinkWithIcon from '../LinkWithIcon';
+import { AiFillGithub } from 'react-icons/ai';
 
 function MainPageBlock() {
   const usedTechnologies = React.useMemo<{
@@ -71,7 +73,7 @@ function MainPageBlock() {
       </div>
       <div className='flex justify-start items-start w-full flex-col'>
         <b>Стек использованных инструментов</b>
-        <div className='flex flex-col justify-start items-start gap-2 ml-2 w-full'>
+        <div className='flex flex-wrap flex-col justify-start items-start gap-2 ml-2 w-full'>
           {
             usedTechnologies.map((tech, index) => (
               <motion.div layout key={index} className='tech-container'>
@@ -92,6 +94,17 @@ function MainPageBlock() {
               </motion.div>
             ))
           }
+        </div>
+        <div className='centered w-full'>
+          <b className='flex gap-2 mt-4'>
+            Исходный код приложения размещён в 
+            <LinkWithIcon 
+              title='репозитории на Github' 
+              url='https://github.com/icestormikk/simplex-method-lab-remastered'
+              icon={(<AiFillGithub className='text-xl'/>)}
+              color='rgb(37, 150, 190)'
+            />
+          </b>
         </div>
       </div>
     </section>

@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { fromRationalString } from '@/algorithms/numberhelper';
+import { DEFAULT_MATRIX_ELEMENT_VALUE, MAX_COLUMNS_COUNT, MAX_ROWS_COUNT, MIN_COLUMNS_COUNT } from '@/constants';
+import { Rational } from '@/types/classes/Rational';
 import React, { ReactNode } from 'react';
 import { ImMinus, ImPlus } from 'react-icons/im';
-
-export const MAX_MATRIX_SIZE = 16
-export const MIN_MAXTRIX_SIZE = 3
-export const DEFAULT_MATRIX_ELEMENT_VALUE = 0
 
 type ControllerButton = {
   title: string|ReactNode,
@@ -25,7 +24,7 @@ interface MatrixBuilderProps {
 
 function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
   const columns = React.useMemo<string[]>(
-    () => matrix[0].map((_, index) => `x${index}`),
+    () => matrix[0].slice(0, matrix[0].length - 1).map((_, index) => `x${index}`).concat('c0'),
     [matrix[0].length]
   )
   const rows = React.useMemo<string[]>(
@@ -35,7 +34,7 @@ function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
 
   const expandMatrixVertically = React.useCallback(
     async () => {
-      if (matrix[0].length >= MAX_MATRIX_SIZE) {
+      if (matrix[0].length >= MAX_COLUMNS_COUNT) {
         return
       }
 
@@ -54,7 +53,7 @@ function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
   )
   const expandMatrixHorizontally = React.useCallback(
     async () => {
-      if (matrix.length >= MAX_MATRIX_SIZE) {
+      if (matrix.length >= MAX_ROWS_COUNT) {
         return
       }
       
@@ -100,12 +99,12 @@ function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
           first={{
             title: <ImPlus/>, 
             action: expandMatrixVertically, 
-            isBlocked: matrix[0].length >= MAX_MATRIX_SIZE
+            isBlocked: matrix[0].length >= MAX_COLUMNS_COUNT
           }} 
           second={{
             title: <ImMinus/>, 
             action: () => reduceMatrix('col'),
-            isBlocked: matrix[0].length < MIN_MAXTRIX_SIZE
+            isBlocked: matrix[0].length <= MIN_COLUMNS_COUNT
           }}
         />
         <DoubleButton
@@ -113,12 +112,12 @@ function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
           first={{
             title: <ImPlus/>, 
             action: expandMatrixHorizontally,
-            isBlocked: matrix.length >= MAX_MATRIX_SIZE
+            isBlocked: matrix.length >= MAX_ROWS_COUNT
           }} 
           second={{
             title: <ImMinus/>, 
             action: () => reduceMatrix('row'),
-            isBlocked: matrix.length < MIN_MAXTRIX_SIZE
+            isBlocked: matrix.length <= MIN_COLUMNS_COUNT
           }}
         />
       </div>
@@ -142,12 +141,20 @@ function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
                   line.map((_, idx) => (
                     <td key={idx}>
                       <input 
-                        type="number" 
+                        type="text" 
                         defaultValue={0}
                         name={`m-${index}-${idx}`} 
                         id={`m-${index}-${idx}`}
                         onChange={(event) => {
-                          matrix[index][idx] = Number(event.target.value)
+                          const {value} = event.target
+                          if (Rational.isRational(value)) {
+                            matrix[index][idx] = fromRationalString(value)
+                          } else {
+                            const convertedValue = Number(value)
+                            if (!Number.isNaN(convertedValue)) {
+                              matrix[index][idx] = convertedValue
+                            }
+                          }
                           setMatrix(matrix)
                         }}
                       />

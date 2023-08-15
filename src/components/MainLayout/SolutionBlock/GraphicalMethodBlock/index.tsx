@@ -60,14 +60,14 @@ function GraphicalMethodBlock() {
           return
         }
   
-        const axis = JSON.parse(JSON.stringify(parameters['axis'])) as number[]
-        const {updatedTarget, constraintsList} = await graphicalMethod(target, constraints, axis)
+        const selectedColumns = JSON.parse(JSON.stringify(parameters['selectedColumns'])) as number[]
+        const {updatedTarget, constraintsList} = await graphicalMethod(target, constraints, selectedColumns)
         const inequalities = constraintsList
           .map((polynomial) => new Inequality(polynomial, ">=", 0))
         const resultSimplex = await artificialBasisMethod(target, constraints)
         const resultCoefficients = extractCoefficients(resultSimplex).map((coefficient) => coefficient.multiplier)
         
-        if (!axis) {
+        if (!selectedColumns) {
           return
         }
   
