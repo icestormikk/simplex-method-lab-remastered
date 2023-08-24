@@ -39,9 +39,7 @@ export class HasErrorTag extends SimplexStepTag {
   public readonly content: any;
 
   constructor(reason?: string, content?: any) {
-    super(
-      "Вычисления остановлены по " + (reason ? `причине: ${reason}` : "неизвестной причине")
-    );
+    super(reason || 'Произошла неизвестная ошибка');
     this.icon = <AiFillWarning/>
     this.content = content
   }

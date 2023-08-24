@@ -35,7 +35,8 @@ async function createWindow() {
       contextIsolation: false,
     },
     minWidth: 1000,
-    minHeight: 800
+    minHeight: 800,
+    autoHideMenuBar: true
   })
 
   if (url) { // electron-vite-vue#298

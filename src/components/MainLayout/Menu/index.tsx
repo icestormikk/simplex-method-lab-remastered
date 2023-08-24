@@ -18,7 +18,7 @@ function Menu({ items, setSelectedItem }: MenuProps) {
   )
 
   return (
-    <aside id='menu' className='flex md:flex-col w-full md:w-fit flex-row gap-1 bordered p-1 shadow-inner rounded-md sticky top-2 left-2'>
+    <aside id='menu' className='flex md:flex-col w-full md:w-fit flex-row gap-1 bordered p-1 shadow-inner rounded-md'>
       {
         items.map((item, index) => (
           <motion.button 

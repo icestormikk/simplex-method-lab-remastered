@@ -85,9 +85,11 @@ function ManualInputBlock({ setIsModalOpen }: ManualInputBlockProps) {
       if (targetFunction.every((element) => element === 0)) {
         return
       }
+      console.log(targetFunction)
 
-      const targetConstant = targetFunction.pop()
-      const targetCoefficients = targetFunction.map((element, index) => new Coefficient(element, index))
+      const targetConstant = targetFunction[targetFunction.length - 1]
+      const targetCoefficients = targetFunction.slice(0, targetFunction.length - 1)
+        .map((element, index) => new Coefficient(element, index))
       const targetPolynomial = new Polynomial(targetCoefficients, targetConstant!)
       return new TargetFunction(targetPolynomial, type)
     },
@@ -132,6 +134,13 @@ function ManualInputBlock({ setIsModalOpen }: ManualInputBlockProps) {
     },
     [createConstraints, createTargetFunction, dispatch, setIsModalOpen, type, view]
   )
+
+  React.useEffect(
+    () => {
+      console.log(targetFunction)
+    },
+    [targetFunction]
+  ) 
   
   return (
     <div className='centered min-w-[600px] w-fit max-w-[96wv] p-2 flex flex-col gap-2'>

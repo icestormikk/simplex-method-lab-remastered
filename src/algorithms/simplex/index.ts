@@ -106,15 +106,6 @@ export async function simplexMethod(
     await passDefaultSimplexMethod(targetCopy, simplexMatrix);
   } catch (e: any) {
     store.dispatch(clearResult())
-    await appendSimplexStep(
-      TaskMode.SIMPLEX,
-      targetCopy,
-      new SimplexMatrix([],[],[]),
-      EMPTY_MATRIX_ELEMENT,
-      undefined,
-      undefined,
-      { tags: [new HasErrorTag(e.message)] }
-    )
     throw new Error(e.message)
   }
 }

@@ -12,7 +12,7 @@ function SimplexMethodParams() {
   )
   const isBlocked = React.useMemo(
     () => {
-      if (!constraints) {
+      if (!constraints || basisCoefficients.every((element) => element === 0)) {
         return true
       }
 
@@ -40,33 +40,31 @@ function SimplexMethodParams() {
   )
 
   return (
-    <div className='flex flex-col gap-2 w-fit'>
+    <div id="additional-params" className='flex flex-col gap-2 w-fit'>
       <b>Введите базис: </b>
-      <table className='matrix-table w-fit'>
-        <tbody>
-          <tr>
-            {
-              basisCoefficients.map((_, index) => (
-                <td key={index}>
-                  <input 
-                    type="number" 
-                    name={`b-${index}`} 
-                    id={`b-${index}`}
-                    defaultValue={0}
-                    onChange={(event) => {
-                      const value = Number(event.target.value)
-                      setBasisCoefficients((prevState) => {
-                        prevState[index] = value
-                        return [...prevState]
-                      })
-                    }}
-                  />
-                </td>   
-              ))
-            }
-          </tr>
-        </tbody>
-      </table>
+      <div className='flex flex-row gap-2 flex-nowrap'>
+        {
+          basisCoefficients.map((_, index) => (
+            <label key={index} htmlFor={`b-${index}`} className='flex flex-row gap-2'>
+              {`V${index}`}
+              <input 
+                type="number" 
+                name={`b-${index}`} 
+                id={`b-${index}`}
+                defaultValue={0}
+                className='bordered w-12 rounded-sm px-2'
+                onChange={(event) => {
+                  const value = Number(event.target.value)
+                  setBasisCoefficients((prevState) => {
+                    prevState[index] = value
+                    return [...prevState]
+                  })
+                }}
+              />
+            </label>
+          ))
+        }
+      </div>
       <div className='centered gap-2 flex-row w-fit'>
         <button 
           className='accept-button w-fit hover:scale-[1.02] duration-100 disabled:bg-red-600'

@@ -21,7 +21,7 @@ function StepInfo({ item, index, onRestart }: StepInfoProps) {
           backgroundColor: item.status === StepStatus.SUCCESS ? 'rgba(0,255,0,0.2)' : ''
         }}
       >
-        <div className='centered'>
+        <div className='flex justify-start items-center w-full'>
           <motion.div 
             layout
             className='w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] centered border-[1px] rounded-lg text-2xl
@@ -29,7 +29,7 @@ function StepInfo({ item, index, onRestart }: StepInfoProps) {
           >
             {item.isLocked ? <BiSolidLockAlt/> : index}
           </motion.div>
-          <div className='px-2'>
+          <div className='px-2 w-5/6'>
             <h3 className='font-bold'>{item.title}</h3>
             <p className='text-gray-400'>{item.isLocked ? item.lockedMessage : item.description}</p>
           </div>

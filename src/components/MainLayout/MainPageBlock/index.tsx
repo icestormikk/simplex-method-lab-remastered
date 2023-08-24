@@ -69,7 +69,7 @@ function MainPageBlock() {
     <section className='centered flex-col p-2 gap-4'>
       <div className='centered flex-col w-1/2 max-w-[800px]'>
         <img src={ProgramLogo} alt='Program Logo'/>
-        <span className='text-gray-400'>v 2.0.1</span>
+        <span className='text-gray-400'>v 2.0.2</span>
       </div>
       <div className='flex justify-start items-start w-full flex-col'>
         <b>Стек использованных инструментов</b>

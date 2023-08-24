@@ -26,6 +26,7 @@ function TargetFunctionBuilder({constraints, setTargetFunction}: TargetFunctionB
 
   const onCoefficientChange = React.useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+      console.log('changed')
       let {value}: any = event.target
       
       if (Rational.isRational(value)) {
@@ -60,7 +61,7 @@ function TargetFunctionBuilder({constraints, setTargetFunction}: TargetFunctionB
           </tr>
           <tr>
             {constraints[0].map((_, index) => (
-              <td key={index}>
+              <td key={`tf-${index}`}>
                 <input 
                   type="text"
                   defaultValue={0}

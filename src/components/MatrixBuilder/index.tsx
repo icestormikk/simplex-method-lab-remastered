@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fromRationalString } from '@/algorithms/numberhelper';
-import { DEFAULT_MATRIX_ELEMENT_VALUE, MAX_COLUMNS_COUNT, MAX_ROWS_COUNT, MIN_COLUMNS_COUNT } from '@/constants';
+import { DEFAULT_MATRIX_ELEMENT_VALUE, MAX_COLUMNS_COUNT, MAX_ROWS_COUNT, MIN_COLUMNS_COUNT, MIN_ROWS_COUNT } from '@/constants';
 import { Rational } from '@/types/classes/Rational';
 import React, { ReactNode } from 'react';
 import { ImMinus, ImPlus } from 'react-icons/im';
@@ -117,7 +117,7 @@ function MatrixBuilder({ matrix, setMatrix }: MatrixBuilderProps) {
           second={{
             title: <ImMinus/>, 
             action: () => reduceMatrix('row'),
-            isBlocked: matrix.length <= MIN_COLUMNS_COUNT
+            isBlocked: matrix.length <= MIN_ROWS_COUNT
           }}
         />
       </div>

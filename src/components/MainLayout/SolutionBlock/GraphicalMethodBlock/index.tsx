@@ -10,9 +10,11 @@ import { TargetFunction } from '@/types/classes/TargetFunction';
 import { FaBorderTopLeft } from 'react-icons/fa6'
 import GraphicalDataBlock from './GraphicalDataBlock';
 import { extractCoefficients } from '@/algorithms/simplex';
+import ErrorScreen from './ErrorScreen';
 
 function GraphicalMethodBlock() {
   const { target, constraints, parameters } = useAppSelector((state) => state.taskReducer)
+  const { calculationsResult, steps } = useAppSelector((state) => state.simplexReducer)
   const [error, setError] = React.useState<string|undefined>(undefined)
   const [methodData, setMethodData] = React.useState<Partial<{
     updatedTarget: TargetFunction,
@@ -98,34 +100,38 @@ function GraphicalMethodBlock() {
   )
 
   return (
-    <div>
-      <GraphicalDataBlock 
-        items={dataOnTop} 
-        type='top'        
-      />
-      <div id='jxgbox' className='h-[800px] bordered'/>
-      <div className='bordered rounded-b-lg'>
-        <div className='flex gap-4'>
-          <div className='border-r-[1px] border-r-gray-300 px-2 py-1 bg-gray-100'>
-            <b>Результаты графического этапа</b>
-          </div>
-          <div className='flex justify-start items-center gap-4'>
-            {
-              error ? (
-                <span className='text-red-600'>Произошла ошибка: {error}</span>
-              ) : (
-                methodData.extremum && (
-                  <>
-                    <p>X* = <b>({methodData.extremum.coordinates.join(', ')})</b></p>
-                    <p>F(X*) = <b>{methodData.extremum.value}</b></p>
-                  </>
+    !calculationsResult ? (
+      <ErrorScreen reason={steps[steps.length - 1].tags[0]?.message}/>
+    ) : (
+      <div>
+        <GraphicalDataBlock 
+          items={dataOnTop} 
+          type='top'        
+        />
+        <div id='jxgbox' className='h-[800px] bordered'/>
+        <div className='bordered rounded-b-lg'>
+          <div className='flex gap-4'>
+            <div className='border-r-[1px] border-r-gray-300 px-2 py-1 bg-gray-100'>
+              <b>Результаты графического этапа</b>
+            </div>
+            <div className='flex justify-start items-center gap-4'>
+              {
+                error ? (
+                  <span className='text-red-600'>Произошла ошибка: {error}</span>
+                ) : (
+                  methodData.extremum && (
+                    <>
+                      <p>X* = <b>({methodData.extremum.coordinates.join(', ')})</b></p>
+                      <p>F(X*) = <b>{methodData.extremum.value}</b></p>
+                    </>
+                  )
                 )
-              )
-            }
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    )
   );
 }
 
