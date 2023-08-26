@@ -1,9 +1,9 @@
 {
-  "name": "electron-vite-react",
+  "name": "simplex_application",
   "version": "2.2.0",
   "main": "dist-electron/main/index.js",
-  "description": "Electron Vite React boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "An updated version of the program for solving optimization problems using the simplex method",
+  "author": "icestormikk",
   "license": "MIT",
   "private": true,
   "debug": {

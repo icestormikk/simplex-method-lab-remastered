@@ -4,7 +4,7 @@ import Modal from '@/components/update/Modal';
 import FileBlock from './FileBlock';
 import { CardData } from '@/vite-env';
 import ManualInputBlock from './ManualInputBlock';
-import { join } from 'path'
+import FileUploadLogo from '@/assets/upload.svg'
 
 function DataInputBlock() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -14,7 +14,7 @@ function DataInputBlock() {
         id: 1,
         title: 'Ввод из файла',
         description: 'Загрузка данных из заранее приготовленного файла',
-        image: join('src', 'assets', 'upload.svg'),
+        image: <img src={FileUploadLogo} alt='Simplex Logo' className='max-w-[4rem] max-h-[4rem]'/>,
         action() {
           setSelectedVariant(cards[0])
           setIsModalOpen(true)
@@ -25,7 +25,7 @@ function DataInputBlock() {
         id: 2,
         title: 'Ручной ввод',
         description: 'Ввод данных с клавиатуры при помощи настройщика',
-        image: join('src', 'assets', 'typing.svg'),
+        image: <img src={FileUploadLogo} alt='Simplex Logo' className='max-w-[4rem] max-h-[4rem]'/>,
         action() {
           setSelectedVariant(cards[1])
           setIsModalOpen(true)

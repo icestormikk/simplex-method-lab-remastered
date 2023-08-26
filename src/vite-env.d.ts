@@ -1,10 +1,10 @@
 /// <reference types="vite/client" />
 
+import React from "react";
 import { Equation } from "./types/classes/Equation";
 import { TargetFunction } from "./types/classes/TargetFunction";
 import { ExtremumType } from "./types/enums/ExtremumType";
 import { FractionView } from "./types/enums/FractionVIew";
-import { TaskMode } from "./types/enums/TaskMode";
 
 // Interface
 type MenuItem = {
@@ -24,7 +24,7 @@ type StepInfoData = {
 type CardData = {
   title: string;
   description: string;
-  image: string;
+  image: JSX.IntrinsicElements.img;
   action: (...args: unknown[]) => unknown;
 }
 

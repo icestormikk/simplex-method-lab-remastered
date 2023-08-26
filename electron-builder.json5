@@ -2,7 +2,7 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "appId": "YourAppID",
+  "appId": "simplex_method_lab_remastered",
   "asar": true,
   "directories": {
     "output": "release/${version}"
@@ -21,10 +21,7 @@
   "win": {
     "target": [
       {
-        "target": "nsis",
-        "arch": [
-          "x64"
-        ]
+        "target": "portable",
       }
     ],
     "artifactName": "${productName}_${version}.${ext}"
