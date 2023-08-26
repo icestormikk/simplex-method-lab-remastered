@@ -165,10 +165,10 @@
     background: rgba(0, 0, 0, 0.6);
   }
   .modal .modal-warp {
-    @apply fixed -translate-x-2/4 z-[19] left-2/4 top-2 h-min w-max;
+    @apply fixed -translate-x-2/4 z-[19] left-1/2 top-2 h-min w-full centered;
   }
   .modal .modal-content {
-    @apply shadow-[0_0_10px_-4px_rgb(130,86,208)] w-fit overflow-x-hidden rounded;
+    @apply shadow-[0_0_10px_-4px_rgb(130,86,208)] lg:w-fit w-5/6 overflow-x-hidden rounded;
   }
   .modal .modal-content .modal-header {
     @apply flex leading-[38px] bg-primary-model-color;
@@ -197,7 +197,7 @@
   }
 
   .step-container {
-    @apply flex flex-row w-full h-fit bordered rounded-md overflow-hidden p-2 gap-2
+    @apply flex flex-row flex-wrap w-full h-fit bordered rounded-md overflow-hidden p-2 gap-2
   }
   .step-container button {
     @apply opacity-0 duration-200 transition-all

@@ -142,13 +142,6 @@ function MainLayout() {
     [dispatch]
   )
 
-  React.useEffect(
-    () => {
-      console.log(target, constraints)
-    },
-    [target, constraints]
-  )
-
   return (
     <section className='w-full h-full'>
       <div className='flex justify-start items-start flex-col md:flex-row gap-2 m-2'>
@@ -168,7 +161,6 @@ function MainLayout() {
             )
           }
           <motion.div
-            layout
             animate={selectedItem ? "selected" : "closed"}
             transition={{duration: 0.2}}
             variants={variants}

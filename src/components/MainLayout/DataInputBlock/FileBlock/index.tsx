@@ -131,7 +131,7 @@ function FileBlock({ setIsModalOpen }: FileBlockProps) {
   }
 
   return (
-    <div className='flex md:flex-row flex-col'>
+    <div className='flex lg:flex-row flex-col'>
       <div className='flex flex-col gap-4 w-fit md:border-r-[1px] border-b-[1px] py-2 px-4'>
         <Article 
           title='Инструкция' 
@@ -266,7 +266,7 @@ function FileBlock({ setIsModalOpen }: FileBlockProps) {
           <ImCheckmark/>
           Принять
         </motion.button>
-        <div className='p-2 border-[1px] bordered rounded-md shadow-md w-[400px]'>
+        <div className='p-2 border-[1px] bordered rounded-md shadow-md w-full'>
           {
             !result ? (
               <b className='text-gray-400'>Здесь отобразится результат</b>

@@ -4,6 +4,7 @@ import Modal from '@/components/update/Modal';
 import FileBlock from './FileBlock';
 import { CardData } from '@/vite-env';
 import ManualInputBlock from './ManualInputBlock';
+import { join } from 'path'
 
 function DataInputBlock() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -13,7 +14,7 @@ function DataInputBlock() {
         id: 1,
         title: 'Ввод из файла',
         description: 'Загрузка данных из заранее приготовленного файла',
-        image: 'src\\assets\\upload.svg',
+        image: join('src', 'assets', 'upload.svg'),
         action() {
           setSelectedVariant(cards[0])
           setIsModalOpen(true)
@@ -24,7 +25,7 @@ function DataInputBlock() {
         id: 2,
         title: 'Ручной ввод',
         description: 'Ввод данных с клавиатуры при помощи настройщика',
-        image: 'src\\assets\\typing.svg',
+        image: join('src', 'assets', 'typing.svg'),
         action() {
           setSelectedVariant(cards[1])
           setIsModalOpen(true)
