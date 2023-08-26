@@ -11,6 +11,11 @@ import { UnsupportedTypeError } from "@/types/exceptions/UnsupportedTypeError";
 import { UnsupportedViewError } from "@/types/exceptions/UnsupportedViewError";
 import { InputData } from "@/vite-env";
 
+/**
+ * Obtaining data about the target function converting them into entities suitable for use in the program
+ * @param data all information read from the file is in a special format
+ * @returns an object of the TargetFunction class
+ */
 export async function extractTarget(data: InputData): Promise<TargetFunction> {
   const {target} = data
   const numbers = await convertToNumbers(target.coefficients)
@@ -28,6 +33,12 @@ export async function extractTarget(data: InputData): Promise<TargetFunction> {
   return new TargetFunction(polynomial, type);
 }
 
+/**
+ * Getting data about constraints on the target function and converting them into entities 
+ * suitable for use in the program
+ * @param data all information read from the file is in a special format
+ * @returns array of objects of the Equation class
+ */
 export async function extractConstraints(data: InputData): Promise<Equation[]> {
   const result: Equation[] = []
   
@@ -46,6 +57,12 @@ export async function extractConstraints(data: InputData): Promise<Equation[]> {
   return result
 }
 
+/**
+ * Obtaining data about the type of extremum in the problem and converting it into an entity 
+ * suitable for use in the program
+ * @param data all information read from the file is in a special format
+ * @returns one of the values of the ExtremumType enumeration
+ */
 export async function extractExtremumType(data: InputData): Promise<ExtremumType> {
   const {type} = data
 
@@ -62,6 +79,11 @@ export async function extractExtremumType(data: InputData): Promise<ExtremumType
   }
 }
 
+/**
+ * Getting data about the desired type of fractions in the program
+ * @param data all information read from the file is in a special format
+ * @returns one of the values of the FractionView enumeration
+ */
 export async function extractFractionView(data: InputData): Promise<FractionView> {
   const {view} = data
 
@@ -78,6 +100,11 @@ export async function extractFractionView(data: InputData): Promise<FractionView
   }
 }
 
+/**
+ * Converting a string containing comma-separated numbers into an array of numbers
+ * @param line a string containing comma-separated numbers
+ * @returns array of numbers that were found in the string
+ */
 async function convertToNumbers(line: string): Promise<number[]> {
   return line.split(',').map((str) => {
     let num = 0

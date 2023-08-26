@@ -1,5 +1,8 @@
 import { RequirementProps } from "@/vite-env"
 
+/**
+ * Acceptable values of properties in the program
+ */
 export const requiredFieldsData: RequirementProps[] = [
   {
     title: 'type',
@@ -23,6 +26,9 @@ export const requiredFieldsData: RequirementProps[] = [
   }
 ]
 
+/**
+ * Example of the data into which user input should be converted
+ */
 export const example = {
   target: {
     coefficients: '1,2,3,4,5,6',
@@ -46,6 +52,9 @@ export const example = {
   view: 'real'
 }
 
+/**
+ * File extensions supported by the program
+ */
 export const supportedFileExtensions = [
   'yaml'
 ]

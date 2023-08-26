@@ -6,6 +6,10 @@ import { UnsupportedViewError } from "@/types/exceptions/UnsupportedViewError";
 import { ConstraintsError } from "@/types/exceptions/ConstraintsError";
 import { TargetFunctionError } from "@/types/exceptions/TargetFunctionError";
 
+/**
+ * Validation of all information read from the file
+ * @param data information previously read from the file and converted to the inputData type
+ */
 export async function validateInputData(data: Partial<InputData>): Promise<void> {
   await validateTaskType(data)
   await validateFractionView(data)
@@ -14,6 +18,10 @@ export async function validateInputData(data: Partial<InputData>): Promise<void>
   await validateConstraints(data)
 }
 
+/**
+ * Validation of the type of extremum specified by the user
+ * @param data information previously read from the file and converted to the inputData type
+ */
 async function validateTaskType(data: Partial<InputData>): Promise<void> {
   const [type] = await getProperties(data, UnsupportedTypeError, 'type')
 
@@ -23,6 +31,10 @@ async function validateTaskType(data: Partial<InputData>): Promise<void> {
   }
 }
 
+/**
+ * Validation of the type of fractions specified by the user
+ * @param data information previously read from the file and converted to the inputData type
+ */
 async function validateFractionView(data: Partial<InputData>): Promise<void> {
   const [view] = await getProperties(data, UnsupportedViewError, 'view')
 
@@ -32,6 +44,10 @@ async function validateFractionView(data: Partial<InputData>): Promise<void> {
   }
 }
 
+/**
+ * Validation of constraints imposed on the target function
+ * @param data information previously read from the file and converted to the inputData type
+ */
 async function validateConstraints(data: Partial<InputData>) {
   const [constraints] = await getProperties(data, ConstraintsError, 'constraints')
 
@@ -50,6 +66,10 @@ async function validateConstraints(data: Partial<InputData>) {
   }))
 }
 
+/**
+ * Validation of the objective function and its coefficients
+ * @param data information previously read from the file and converted to the inputData type
+ */
 async function validateTarget(data: Partial<InputData>) {
   const [, coefficients,] = await getProperties(
     data, TargetFunctionError, 'target', 'target.coefficients', 'target.constant'

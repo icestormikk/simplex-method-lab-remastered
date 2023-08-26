@@ -10,6 +10,12 @@ import {
   extractTarget 
 } from './extractors'
 
+/**
+ * Reading information from a file, validating it and converting it into a special format 
+ * that can later be used in the program
+ * @param file a file received from the user and containing information about the task
+ * @returns Validated task information converted to inputData type
+ */
 export async function extractDataFromFile(file: File): Promise<TaskData> {
   const data = await readYamlFile(file.path)
 
