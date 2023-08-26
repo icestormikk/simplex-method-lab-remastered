@@ -53,7 +53,7 @@ export async function gauss(
       return
     }
 
-    for (const columnIndex of selectedColumns.toReversed()) {
+    for (const columnIndex of toReversed(selectedColumns)) {
         const i = selectedColumns.indexOf(columnIndex)
         for (let j = 0; j < i; j++) {
             if (matrix[i][columnIndex] === 0) {
@@ -108,4 +108,13 @@ function swipeByMainElement(
   }
 
   return matrix
+}
+
+function toReversed<T>(source: Array<T>) : Array<T> {
+  const result: Array<T> = []
+  for (let i = source.length - 1; i >= 0; i--) {
+      result.push(source[i])
+  }
+
+  return result
 }
